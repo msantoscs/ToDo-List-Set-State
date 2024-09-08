@@ -27,29 +27,26 @@ function App() {
     isCompleted: false,
   }
 ]);
-const [value, setValue] = React.useState('');
-const handleSubmit = e => {
-  e.preventDefault();
-  if (!value) return;
-  const newTodos = [...todos,{text:value, isCompleted:false}];
+  const addTodo = text => {
+  const newTodos = [...todos,{text:text, isCompleted:false}];
   setTodos(newTodos);
-  setValue('');
+}
+const removeTodo = index => {
+  const index = Number(e.target.id);
+  let temp = [...todos];
+  temp.splice(index,1);
+  setTodos(temp);
 }
 return (<>
-  {todos.map((todo, i) => 
-    <div className="todo" key={i}>
-      {todo.text}
+  <div className="app">
+    <div className="todo-lists">
+      {todos.map((todo, i) => 
+        <Todo index={i} key={i} todo={todo} remove =
+        {removeTodo}/>)}
+      <TodoForm addTodo={addTodo} />
     </div>
-  )}
-  <form onSubmit={handleSubmit}>
-    <input
-      type="text"
-      className="input"
-      value={value}
-      placeholder="Add Todo..."
-      onChange={e => setValue(e.target.value)}
-    />
-  </form>
+  </div>
 </>);
 }
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render
+(<App />, document.getElementById('root'));
